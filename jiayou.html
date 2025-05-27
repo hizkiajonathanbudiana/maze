@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Game</title>
+    <link rel="stylesheet" href="jiayou.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <div class="game-container">
+        <div id="analog-controls-container" class="analog-controls">
+            <button id="upBtn">⬆</button>
+            <button id="leftBtn"><</button>
+            <button id="rightBtn">></button>
+            <button id="downBtn">⬇</button>
+        </div>
+
+        <div class="maze-display-area">
+            <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Generating Maze...</p>
+            </div>
+            <div id="tempNotification" class="temp-notification" style="display: none;"></div>
+            <svg id="mazeArea"></svg> </div>
+
+        <div id="action-controls-container" class="action-controls">
+            <div id="size-controls-container">
+                <label for="slider">Choose size (3 to 100):</label>
+                <input type="range" id="slider" min="3" max="100" value="18">
+                <p id="slider-value">Current size: 18</p>
+                <input type="number" id="sizeInput" name="sizeInput" min="3" max="100" value="18" maxlength="3">
+                <p id="sizeError" class="error-message" style="display: none;">Ukuran harus antara 3 dan 100.</p>
+            </div>
+
+            <div class="button-generate">
+                <button id="generateBtn">Generate New Maze</button>
+            </div>
+
+            <div id="musicControl" class="control-group">
+                <audio id="backgroundMusic" loop>
+                    <source src="hakee-333940.mp3" type="audio/mpeg">
+                    Browser Anda tidak support elemen audio.
+                </audio>
+                <button id="playPauseBtn">Play Music</button>
+            </div>
+
+            <div id="fullscreenControl" class="control-group">
+                <button id="fullscreenBtn">Fullscreen</button>
+                <button id="fullscreenExit" style="display: none;">Exit Fullscreen</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="jiayou.js" type="module"></script>
+</body>
+</html>

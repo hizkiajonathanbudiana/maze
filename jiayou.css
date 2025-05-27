@@ -1,0 +1,310 @@
+body {
+    font-family: sans-serif;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 100vh;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.analog-controls {
+    flex: 0 0 120px;
+    display: grid;
+    grid-template-areas:
+        ". up ."
+        "left . right"
+        ". down .";
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    gap: 8px;
+    justify-items: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.analog-controls button {
+    width: 55px;
+    height: 55px;
+    font-size: 1.8em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+#upBtn { grid-area: up; }
+#leftBtn { grid-area: left; }
+#rightBtn { grid-area: right; }
+#downBtn { grid-area: down; }
+
+.analog-controls button:hover {
+    background-color: #0056b3;
+}
+
+.analog-controls button:active {
+    background-color: #004085;
+    transform: scale(0.95);
+}
+
+.maze-display-area {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    padding: 0 10px;
+}
+
+#mazeArea {
+    background-color: darkolivegreen;
+    border: 1px solid midnightblue;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 1 / 1;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.maze-paths line {
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: square;
+}
+
+.action-controls {
+    flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    background-color: #222235;
+    border-radius: 8px;
+    height: auto;
+    max-height: 95vh;
+    overflow-y: auto;
+}
+
+#size-controls-container,
+.button-generate,
+#musicControl,
+#fullscreenControl {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+#size-controls-container label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #c0c0c0;
+}
+
+input[type="range"] {
+    width: 90%;
+    cursor: pointer;
+}
+
+#slider-value {
+    margin-top: 2px;
+    font-size: 0.9rem;
+    color: #a0a0a0;
+}
+
+input[type="number"] {
+    width: 70%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #e0e0e0;
+    box-sizing: border-box;
+    text-align: center;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#sizeError.error-message {
+    color: #ff6b6b;
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.action-controls button {
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+.action-controls button:hover {
+    background-color: #0056b3;
+}
+
+.action-controls button:active {
+    background-color: #004085;
+    transform: translateY(1px);
+}
+
+#generateBtn {
+    background-color: #28a745;
+}
+#generateBtn:hover { background-color: #1e7e34; }
+
+#playPauseBtn {
+    background-color: #17a2b8;
+}
+#playPauseBtn:hover { background-color: #117a8b; }
+
+#fullscreenBtn,
+#fullscreenExit {
+    background-color: #6c757d;
+}
+#fullscreenBtn:hover,
+#fullscreenExit:hover { background-color: #545b62; }
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 26, 46, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    color: #e0e0e0;
+}
+
+.loading-spinner {
+    border: 6px solid #4a4a5e;
+    border-top: 6px solid #007bff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
+}
+
+.temp-notification {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(40, 167, 69, 0.95);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    z-index: 1000;
+    font-size: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+@media (max-width: 768px), (orientation: portrait) {
+    .game-container {
+        flex-direction: column;
+        justify-content: flex-start;
+        height: auto;
+        min-height: 100vh;
+        padding: 5px;
+    }
+
+    .action-controls {
+        order: 1;
+        flex: 0 0 auto;
+        width: 95%;
+        max-width: 400px;
+        margin-bottom: 10px;
+        padding: 15px;
+        max-height: none;
+    }
+    .action-controls button {
+        width: 90%;
+    }
+    input[type="number"] {
+        width: 60%;
+    }
+
+    .maze-display-area {
+        order: 2;
+        width: 100%;
+        max-width: 95vw;
+        height: auto;
+        max-height: 55vh;
+        padding: 5px 0;
+    }
+    #mazeArea {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .analog-controls {
+        order: 3;
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 95%;
+        max-width: 400px;
+        padding: 10px 0;
+        margin-top: 10px;
+    }
+    .analog-controls button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+        margin: 0 5px;
+    }
+
+    .temp-notification {
+        top: 5px;
+        width: 80%;
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}
